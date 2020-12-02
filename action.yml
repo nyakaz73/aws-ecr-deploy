@@ -13,6 +13,23 @@ inputs:
     aws_account_id:
         description: 'AWS account id'
         required: true
+    repo_name:
+        description: 'AWS ECR Repository name'
+        required: false
+    scan_on_push:
+        description: 'Scan image on pushing to ECR'
+        required: false
+        default: true
+    image_name:
+        description: 'Docker image name'
+        required: true
+    use_compose:
+        description: 'Build from docker compose file'
+        required: false
+        default: false
+    docker_path:
+        description: 'Path to Dockerfile or docker-compose file'
+        default: './'
     force_push:
         description: 'Force push to AWS ECR if there are conflicts or git fast forwards issues'
         required: false
