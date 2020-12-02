@@ -1,0 +1,24 @@
+name: 'AWS ECR Images Deploy'
+description: 'Automatically deploys deploys image(s) to aws Elastic Container Registry-ECR'
+inputs:
+    access_key_id:
+        description: 'AWS access key id'
+        required: true
+    secret_access_key:
+        description: 'AWS secret acess key'
+        required: true
+    force_push:
+        description: 'Force push to AWS ECR if there are conflicts or git fast forwards issues'
+        required: false
+        default: false
+    working-directory:
+        description: 'The directory for the commands to execute in'
+        default: './'
+outputs:
+    status:
+        description: "Status of the action"
+runs:
+    using: "node12"
+    main: "index.js"
+
+
