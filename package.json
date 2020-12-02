@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nyakaz73/aws-ecr-deploy/issues"
   },
-  "homepage": "https://github.com/nyakaz73/aws-ecr-deploy#readme"
+  "homepage": "https://github.com/nyakaz73/aws-ecr-deploy#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6"
+  }
 }
