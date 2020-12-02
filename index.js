@@ -17,7 +17,7 @@ let execOptions = {
 }
 
 //Create a .aws folder in the root home directory to store security config and credentials files.
-const createAwsForLogin = ({ access_key_id, secret_access_key, region }) => {
+const configureAwsForLogin = ({ access_key_id, secret_access_key, region }) => {
     execSync(`cat >~/.aws/config <<EOF
 [default]
 region = ${region}
@@ -33,7 +33,7 @@ aws_secret_access_key = ${secret_access_key}
 
 const login = ({ region, aws_account_id }) => {
     try {
-        createAwsForLogin(aws);
+        configureAwsForLogin(aws);
         const login = execSync(`aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${region}.amazonaws.com`).toString();
         console.log(login);
     } catch (error) {
