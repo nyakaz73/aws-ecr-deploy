@@ -1,0 +1,19 @@
+{
+  "name": "aws-ecr-deploy",
+  "version": "1.0.0",
+  "description": "A simple Github action that automatically deploys container(s) to aws Elastic Container Registry (ECR)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyakaz73/aws-ecr-deploy.git"
+  },
+  "author": "Tafadzwa L Nyamukapa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nyakaz73/aws-ecr-deploy/issues"
+  },
+  "homepage": "https://github.com/nyakaz73/aws-ecr-deploy#readme"
+}
