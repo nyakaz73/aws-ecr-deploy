@@ -18,17 +18,22 @@ let execOptions = {
 
 //Create a .aws folder in the root home directory to store security config and credentials files.
 const configureAwsForLogin = ({ access_key_id, secret_access_key, region }) => {
-    execSync('mkdir ~/.aws');
-    execSync(`cat >~/.aws/config <<EOF
+    try {
+        execSync('mkdir ~/.aws');
+        execSync(`cat >~/.aws/config <<EOF
 [default]
 region = ${region}
 output = json
     `);
-    execSync(`cat >~/.aws/credentials <<EOF
+        execSync(`cat >~/.aws/credentials <<EOF
 [default]
 aws_access_key_id = ${access_key_id}
 aws_secret_access_key = ${secret_access_key}
     `);
+    } catch (error) {
+        console.log(error.message);
+        core.setFailed(error.message);
+    }
 }
 
 
