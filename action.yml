@@ -7,6 +7,12 @@ inputs:
     secret_access_key:
         description: 'AWS secret acess key'
         required: true
+    region:
+        description: 'AWS Region whose servers you want to send your requests to by defaul. Region close to you'
+        required: true
+    aws_account_id:
+        description: 'AWS account id'
+        required: true
     force_push:
         description: 'Force push to AWS ECR if there are conflicts or git fast forwards issues'
         required: false
