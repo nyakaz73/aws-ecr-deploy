@@ -1,7 +1,7 @@
 {
   "name": "aws-ecr-deploy",
   "version": "1.0.0",
-  "description": "A simple Github action that automatically deploys container(s) to aws Elastic Container Registry (ECR)",
+  "description": "A simple Github action that automatically deploys image(s) to aws Elastic Container Registry (ECR)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
