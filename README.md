@@ -1,2 +1,2 @@
-# aws-django-deploy
-Github action that deploys Django app to aws ECR
+# aws-ecr-deploy
+Github action that deploys container(s) to aws Elastic Container Registry (ECR)
