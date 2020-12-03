@@ -12,6 +12,8 @@ let aws = {
     'image_name': core.getInput('image_name'),
     'use_compose': core.getInput('use_compose'),
     'docker_path': core.getInput('docker_path'),
+    'repo_uri': core.getInput('repo_url'),
+    'tag_name': core.getInput('tag_name'),
     'force_push': core.getInput('force_push'),
     'working_dir': core.getInput('working-directory')
 }
@@ -84,9 +86,18 @@ const buildImage = ({ use_compose, image_name, docker_path }) => {
     }
 }
 
-const tagImage = ({ }) => {
+//Put an option to allow users to tag their docker-compose files
+const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name }) => {
     try {
+        if (use_compose === 'true') {
 
+        } else {
+            if (repo_uri !== "") {
+                const tag = execSync(`docker tag ${image_name}:latest ${repo_uri}:latest`).toString();
+                console.log(tag);
+            }
+            const tag = execSync(`docker tag ${image_name}:latest ${aws_account_id}.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest`)
+        }
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
