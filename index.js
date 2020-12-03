@@ -73,11 +73,11 @@ const createRepository = ({ repo_name, region, scan_on_push }) => {
 const buildImage = ({ use_compose, image_name, docker_path }) => {
     try {
         if (use_compose === 'true') {
-            const build = execSync(`docker-compose build`).toString();
+            const build = execSync(`docker-compose build`, execOptions).toString();
             console.log(build);
 
         } else {
-            const build = execSync(`docker build -t ${image_name} ${docker_path}`).toString();
+            const build = execSync(`docker build -t ${image_name} ${docker_path}`, execOptions).toString();
             console.log(build);
         }
     } catch (error) {
@@ -87,17 +87,33 @@ const buildImage = ({ use_compose, image_name, docker_path }) => {
 }
 
 //Put an option to allow users to tag their docker-compose files
-const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name }) => {
+const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name, region, repo_name }) => {
     try {
         if (use_compose === 'true') {
 
         } else {
             if (repo_uri !== "") {
-                const tag = execSync(`docker tag ${image_name}:latest ${repo_uri}:latest`).toString();
+                const tag = execSync(`docker tag ${image_name}:${tag_name} ${repo_uri}:${tag_name}`).toString();
+                console.log(tag);
+            } else {
+                const tag = execSync(`docker tag ${image_name}:${tag_name} ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${repo_name}:${tag_name}`).toString();
                 console.log(tag);
             }
-            const tag = execSync(`docker tag ${image_name}:latest ${aws_account_id}.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest`)
         }
+    } catch (error) {
+        console.log(error.message);
+        core.setFailed(error.message);
+    }
+}
+
+const pushImage = ({ }) => {
+    try {
+        if (use_compose === 'true') {
+
+        } else {
+
+        }
+
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
