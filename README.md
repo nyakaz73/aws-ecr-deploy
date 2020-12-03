@@ -1,2 +1,2 @@
 # aws-ecr-deploy
-Github action that deploys container(s) to aws Elastic Container Registry (ECR)
+Github action that deploys image container(s) to aws Elastic Container Registry (ECR)

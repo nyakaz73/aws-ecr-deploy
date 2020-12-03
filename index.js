@@ -139,3 +139,13 @@ const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri }) =>
         core.setFailed(error.message);
     }
 }
+
+
+installAwsCli();
+configureAwsForLogin(aws);
+login(aws);
+
+core.setOutput(
+    "status",
+    "Successfully deployed image(s) to AWS ECR"
+);
