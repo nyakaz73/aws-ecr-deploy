@@ -23,6 +23,20 @@ let execOptions = {
     cwd: aws.working_dir,
 }
 
+const installAwsCli = () => {
+    try {
+        const curl = execSync(`curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"`).toString();
+        console.log(curl);
+        const unzip = execSync('unzip awscliv2.zip').toString();
+        console.log(unzip);
+        const install = execSync("sudo ./aws/install").toString();
+        console.log(install);
+    } catch (error) {
+        console.log(error.message);
+        core.setFailed(error.message);
+    }
+}
+
 //Create a .aws folder in the root home directory to store security config and credentials files.
 const configureAwsForLogin = ({ access_key_id, secret_access_key, region }) => {
     try {
@@ -106,14 +120,20 @@ const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name,
     }
 }
 
-const pushImage = ({ }) => {
+const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri }) => {
     try {
         if (use_compose === 'true') {
-
+            const push = execSync(`docker-compose push`).toString();
+            console.log(push);
         } else {
-
+            if (repo_uri !== "") {
+                const push = execSync(`docker push ${repo_uri}:${tag_name}`).toString();
+                console.log(push);
+            } else {
+                const push = execSync(`docker push ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${repo_name}:${tag_name}`).toString();
+                console.log(push);
+            }
         }
-
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
