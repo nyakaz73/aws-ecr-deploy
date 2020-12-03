@@ -30,6 +30,13 @@ inputs:
     docker_path:
         description: 'Path to Dockerfile or docker-compose file'
         default: './'
+    repo_uri:
+        description: 'ECR Repository URI'
+        required: false
+    tag_name:
+        description: 'ECR Repository Image tag name'
+        required: false
+        default: 'latest'
     force_push:
         description: 'Force push to AWS ECR if there are conflicts or git fast forwards issues'
         required: false
