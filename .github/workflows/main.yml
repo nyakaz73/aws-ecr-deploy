@@ -13,7 +13,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
             - name: Deploy Django container image to AWS ECR
-              uses: nyakaz73/aws-ecr-deploy@v0.04
+              uses: nyakaz73/aws-ecr-deploy@v0.05
               id: deploy 
               with:
                 access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
