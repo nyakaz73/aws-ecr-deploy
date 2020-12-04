@@ -20,7 +20,10 @@ jobs:
                 secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 region: ${{ secrets.AWS_REGION }}
                 aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+                image_name: mydjangotestapp
                 working-directory: ./tests/django_app
 
             - name: Get the output status
               run: echo "${{ steps.deploy.outputs.status }}"
+
+              
