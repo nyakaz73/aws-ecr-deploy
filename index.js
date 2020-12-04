@@ -40,7 +40,6 @@ const installAwsCli = () => {
 //Create a .aws folder in the root home directory to store security config and credentials files.
 const configureAwsForLogin = ({ access_key_id, secret_access_key, region }) => {
     try {
-        execSync('mkdir ~/.aws');
         execSync(`cat >~/.aws/config <<EOF
 [default]
 region = ${region}
