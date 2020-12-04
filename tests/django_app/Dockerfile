@@ -47,4 +47,14 @@ RUN adduser -D myuser
 USER myuser
 
 # run gunicorn  Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a pre-fork worker model. 
-CMD gunicorn djangoherokuapp.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn django_app.wsgi:application --bind 0.0.0.0:8000
+#CMD python manage.py runserver 0.0.0.0:8000
+
+#To test Locally
+# --Build Image
+#$> docker build -t mydjangoapp:latest .
+# --Run Container
+#$> docker run -it -d -p 8000:8000 mydjangoapp
+#Running a local server of Django is not a recommended way in production because
+# it’s just a test server not a production ready server. So to run Django in production
+# is to run with Gunicorn and use Nginx as a reverse proxy so it gives more security to our application.
