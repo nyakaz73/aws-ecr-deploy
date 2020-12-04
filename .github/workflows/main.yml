@@ -1,0 +1,26 @@
+name: Deploy ECR Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs: 
+    aws_ecr_dockerfile_deploy:
+        runs-on: ubuntu-latest
+        name: AWS ecr deploy- A job that deploys a image container using a aws_ecr_dockerfile_deploy
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Deploy Django container image to AWS ECR
+              uses: nyakaz73/aws-ecr-deploy@v0.01
+              id: deploy 
+              with:
+                access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                region: ${{ secrets.AWS_REGION }}
+                aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+                working-directory: ./tests/django_app
+
+            - name: Get the output status
+              run: echo "${{ steps.deploy.outputs.status }}"
