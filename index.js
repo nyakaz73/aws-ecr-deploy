@@ -78,7 +78,8 @@ const createRepository = ({ repo_name, region, scan_on_push }) => {
         const repos = execSync('aws ecr describe-repositories').toString();
         console.log(repos);
         const reposJson = JSON.parse(repos);
-        reposJson.repositories.forEach(repos => {
+        reposJson.repositories.forEach((repos) => {
+            console.log(repos);
             if (repos.repositoryName === repo_name) {
                 return;
             }
