@@ -82,6 +82,7 @@ const createRepository = ({ repo_name, region, scan_on_push }) => {
         --region ${region}
         `).toString();
         console.log(repo);
+        console.log('Repository successfully created');
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
@@ -114,8 +115,24 @@ const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name,
                 const tag = execSync(`docker tag ${image_name}:${tag_name} ${repo_uri}:${tag_name}`).toString();
                 console.log(tag);
             } else {
-                const tag = execSync(`docker tag ${image_name}:${tag_name} ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${repo_name}:${tag_name}`).toString();
-                console.log(tag);
+                //No repo was created so need to create a repo
+                if (repo_name === "") {
+                    const newRepoData = {
+                        'repo_name': image_name,
+                        'region': aws.region,
+                        'scan_on_push': aws.scan_on_push
+                    }
+                    createRepository(newRepoData);
+                    //Tag repo with image name as repo name
+                    const tag = execSync(`docker tag ${image_name}:${tag_name} ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${image_name}:${tag_name}`).toString();
+                    console.log(tag);
+
+                } else {
+                    //Here we need to check  if the repo exists else create repo again.
+                    const tag = execSync(`docker tag ${image_name}:${tag_name} ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${repo_name}:${tag_name}`).toString();
+                    console.log(tag);
+                }
+
             }
         }
     } catch (error) {
@@ -124,7 +141,7 @@ const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name,
     }
 }
 
-const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri }) => {
+const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri, image_name }) => {
     try {
         if (use_compose === 'true') {
             const push = execSync(`docker-compose push`).toString();
@@ -134,8 +151,14 @@ const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri }) =>
                 const push = execSync(`docker push ${repo_uri}:${tag_name}`).toString();
                 console.log(push);
             } else {
-                const push = execSync(`docker push ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${repo_name}:${tag_name}`).toString();
-                console.log(push);
+                //If repo name is not provided use image_name that was created in tagging instead
+                if (repo_name === "") {
+                    const push = execSync(`docker push ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${image_name}:${tag_name}`).toString();
+                    console.log(push);
+                } else {
+                    const push = execSync(`docker push ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${repo_name}:${tag_name}`).toString();
+                    console.log(push);
+                }
             }
         }
     } catch (error) {
@@ -144,10 +167,14 @@ const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri }) =>
     }
 }
 
-
+/*This order is to kept as is:*/
+//Probably need a Snapshot test
 installAwsCli();
 configureAwsForLogin(aws);
 login(aws);
+buildImage(aws);
+tagImage(aws);
+pushImage(aws);
 
 core.setOutput(
     "status",
