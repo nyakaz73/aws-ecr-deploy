@@ -75,6 +75,14 @@ const login = ({ region, aws_account_id }) => {
 
 const createRepository = ({ repo_name, region, scan_on_push }) => {
     try {
+        const repos = execSync('aws ecr describe-repositories').toString();
+        console.log(repos);
+        const reposJson = JSON.parse(repos);
+        reposJson.repositories.forEach(repos => {
+            if (repos.repositoryName === repo_name) {
+                return;
+            }
+        });
         console.log('Creating Repository *********************');
         const repo = execSync(`
         aws ecr create-repository \
