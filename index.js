@@ -77,22 +77,28 @@ const createRepository = ({ repo_name, region, scan_on_push }) => {
     try {
         const repos = execSync('aws ecr describe-repositories').toString();
         console.log(repos);
+        x = [];
         const reposJson = JSON.parse(repos);
         reposJson.repositories.forEach((repos) => {
-            console.log(repos);
+            console.log(repos.repositoryName);
             if (repos.repositoryName === repo_name) {
-                return;
+                x.push(repos.repositoryName)
+
             }
         });
-        console.log('Creating Repository *********************');
-        const repo = execSync(`
+        if (x.length === 0) {
+            console.log('Creating Repository *********************');
+            const repo = execSync(`
         aws ecr create-repository \
         --repository-name ${repo_name} \
         --image-scanning-configuration scanOnPush=${scan_on_push} \
         --region ${region}
         `).toString();
-        console.log(repo);
-        console.log('Repository successfully created');
+            console.log(repo);
+            console.log('Repository successfully created');
+        } else {
+            console.log('Repository already created.')
+        }
     } catch (error) {
         console.log(error.message);
         core.setFailed(error.message);
