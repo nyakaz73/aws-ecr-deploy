@@ -75,6 +75,7 @@ const login = ({ region, aws_account_id }) => {
 
 const createRepository = ({ repo_name, region, scan_on_push }) => {
     try {
+        console.log('Creating Repository *********************');
         const repo = execSync(`
         aws ecr create-repository \
         --repository-name ${repo_name} \
@@ -91,6 +92,7 @@ const createRepository = ({ repo_name, region, scan_on_push }) => {
 
 const buildImage = ({ use_compose, image_name, docker_path }) => {
     try {
+        console.log('Building Image *********************');
         if (use_compose === 'true') {
             const build = execSync(`docker-compose build`, execOptions).toString();
             console.log(build);
@@ -108,6 +110,7 @@ const buildImage = ({ use_compose, image_name, docker_path }) => {
 //Put an option to allow users to tag their docker-compose files
 const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name, region, repo_name }) => {
     try {
+        console.log('Tag Image *********************');
         if (use_compose === 'true') {
 
         } else {
@@ -141,8 +144,9 @@ const tagImage = ({ use_compose, image_name, aws_account_id, repo_uri, tag_name,
     }
 }
 
-const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri, image_name }) => {
+const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri, image_name, use_compose }) => {
     try {
+        console.log('Pushing Image ********************');
         if (use_compose === 'true') {
             const push = execSync(`docker-compose push`).toString();
             console.log(push);
