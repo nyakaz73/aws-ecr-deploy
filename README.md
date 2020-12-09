@@ -9,18 +9,18 @@ aws-ecr-deploy uses two method to push your image containers to aws ECR ie:
 * 2. Push with docker-compose file
 
 
-Make sure you have a Dockerfile in the root directory of project
+Make sure you have a Dockerfile in the root directory of your project.
 
 ### 1. Push with dockerfile
 By default the action uses the Dockerfile in your root directory to create and push the docker container images to aws ECR. See example below:
 In the **with** tag make sure you have the following inputs:
 * access_key_id
 * secret_access_key 
-*access_key_id* and *secret_access_key* are for aws ECR authentication.
+* *access_key_id* and *secret_access_key* are for aws ECR authentication.
 * region
 * aws_account_id
 * image_name
-*region* and *aws_account_id* you get them from your aws account  ,and image_name is the name you want to give your image upon built.
+* *region* and *aws_account_id* you get them from your aws account  ,and image_name is the name you want to give your image upon built.
 * **NB** These option automatically creates a repository on your aws ecr with its name being the **image_name**. If you want to give it different name from the image name add the **repo_name** tag. See table below for more options.
 If however you have already create the repository on your aws ecr use the **repo_uri** tag .See the options table for an example.
 ```yml
@@ -45,7 +45,7 @@ jobs:
                 secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 region: ${{ secrets.AWS_REGION }}
                 aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-                image_name: mydjangotestapp
+                image_name: myapp
 
             - name: Get the output status
               run: echo "${{ steps.deploy.outputs.status }}"
