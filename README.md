@@ -21,6 +21,8 @@ In the **with** tag make sure you have the following inputs:
 * aws_account_id
 * image_name
 *region* and *aws_account_id* you get them from your aws account  ,and image_name is the name you want to give your image upon built.
+* **NB** These option automatically creates a repository on your aws ecr with its name being the **image_name**. If you want to give it different name from the image name add the **repo_name** tag. See table below for more options.
+If however you have already create the repository on your aws ecr use the **repo_uri** tag .See the options table for an example.
 ```yml
 name: Deploy Container image to aws ECR
 on:
