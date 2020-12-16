@@ -67,3 +67,8 @@ The action has multiple options, here is a list of options you can use  under th
 |  use_compose                 |  false    | Build image from docker compose file | use_compose: true |
 |  docker_path                 |  false    | Path to Dockerfile or docker-compose file | docker_path: ./newfolder_in_root |
 |  working-directory          |  false    | Used when you want to specify a different working directory for your root app directory from default ./ | working-directory: ./newfolder_in_root/djangoapp |
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/nyakaz73/aws-ecr-deploy/blob/master/LICENSE) file for details
