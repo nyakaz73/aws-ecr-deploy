@@ -12,11 +12,11 @@ ENV PYTHONUNBUFFERED 1
 ENV DEBUG 0
 
 #install psycopg2
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add postgresql-dev \
-    && pip install psycopg2 \
-    && apk del build-deps
+#RUN apk update \
+#    && apk add --virtual build-deps gcc python3-dev musl-dev \
+#    && apk add postgresql-dev \
+#    && pip install psycopg2 \
+#    && apk del build-deps
 
 #install zlib to alliw Pillow wheel build
 #RUN apk add zlib-dev jpeg-dev gcc musl-dev
