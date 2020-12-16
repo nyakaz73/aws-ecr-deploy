@@ -51,3 +51,19 @@ jobs:
               run: echo "${{ steps.deploy.outputs.status }}"
 
 ```
+
+## Options
+The action has multiple options, here is a list of options you can use  under the **with** flag in your workflow:
+| Name                        | Required  | Description                      | Example                          |
+| --------------------------- | --------  | -------------------------------- | -------------------------------- |
+|  access_key_id            |  true     | This is the AWS access key id for auth, | access_key_id:  ${{ secrets.AWS_ACCESS_KEY_ID }} |
+|  secret_access_key             |  true     | This is the AWS secret access key for auth  | secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} |
+|  region       |  true     | AWS region | region: eu-west-2 |
+|  aws_account_id                    |  true    | This is your AWS account id | aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }} |
+|  repo_name                 |  false    | AWS ECR Repository name | repo_name:  nginx-repo |
+|  image_name         |  false    | This is the name you want to give to your Docker name | image_name: nginx-image |
+|  repo_uri     |  false    | AWS ECR Repository URI | repo_uri: 980606782194.dkr.ecr.eu-west-2.amazonaws.com/nginx-repo |
+|  tag_name                 |  false    | AWS ECR Repository Image tag name, by default is uses latest as tag name | tag_name: latest |
+|  use_compose                 |  false    | Build image from docker compose file | use_compose: true |
+|  docker_path                 |  false    | Path to Dockerfile or docker-compose file | docker_path: ./newfolder_in_root |
+|  working-directory          |  false    | Used when you want to specify a different working directory for your root app directory from default ./ | working-directory: ./newfolder_in_root/djangoapp |
