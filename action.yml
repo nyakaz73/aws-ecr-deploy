@@ -8,7 +8,7 @@ inputs:
         description: 'AWS secret acess key'
         required: true
     region:
-        description: 'AWS Region whose servers you want to send your requests to by defaul. Region close to you'
+        description: 'AWS Region whose servers you want to send your requests to by default. Region close to you'
         required: true
     aws_account_id:
         description: 'AWS account id'
@@ -31,10 +31,10 @@ inputs:
         description: 'Path to Dockerfile or docker-compose file'
         default: './'
     repo_uri:
-        description: 'ECR Repository URI'
+        description: 'AWS ECR Repository URI'
         required: false
     tag_name:
-        description: 'ECR Repository Image tag name'
+        description: 'AWS ECR Repository Image tag name'
         required: false
         default: 'latest'
     force_push:
