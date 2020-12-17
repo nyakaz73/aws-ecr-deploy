@@ -51,6 +51,36 @@ jobs:
               run: echo "${{ steps.deploy.outputs.status }}"
 
 ```
+Since the repo_url contains aws_account id , region, and repo_name you can simply use it as below:
+To use with repo_uri:
+```yml
+name: Deploy Container image to aws ECR
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs: 
+    aws_ecr_dockerfile_deploy:
+        runs-on: ubuntu-latest
+        name: AWS ecr deploy- A job that deploys a image container using a aws_ecr_dockerfile_deploy
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Deploy container image to AWS ECR
+              uses: nyakaz73/aws-ecr-deploy@v0.08
+              id: deploy 
+              with:
+                access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                image_name: myapp
+                repo_uri: 694554431194.dkr.ecr.eu-west-2.amazonaws.com/myapp
+
+            - name: Get the output status
+              run: echo "${{ steps.deploy.outputs.status }}"
+
+```
+
 
 ## Options
 The action has multiple options, here is a list of options you can use  under the **with** flag in your workflow:
