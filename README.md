@@ -11,7 +11,7 @@ aws-ecr-deploy uses two method to push your image containers to aws ECR ie:
 
 Make sure you have a Dockerfile in the root directory of your project.
 
-### 1. Push with dockerfile
+### 1. Push with Dockerfile
 By default the action uses the Dockerfile in your root directory to create and push the docker container images to aws ECR. See example below:
 In the **with** tag make sure you have the following inputs:
 * access_key_id
@@ -81,6 +81,32 @@ jobs:
 
 ```
 
+### 2. Push with docker-compose file
+If you have a list of services in you docker-compose file, make sure you add your repository uri, image in your services you want to push to AWS ECR. see example below:
+
+If for example you have **web** and **nginx-proxy** services, update the **image**  propertiesto use images from ECR
+
+```yml
+version: '3.7'
+
+services:
+  web:
+    build:
+      context:  ./app
+      dockerfile: Dockerfile.prod
+    image: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/myapp-image-ec2:web
+    command: 
+    ...
+    ...
+  nginx-proxy:
+    build: nginx
+    image: <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/myapp-image-ec2:nginx-proxy
+    ...
+    ...
+```
+The values consist of the repository URI (123456789.dkr.ecr.us-east-1.amazonaws.com) along with the **image name** (myapp-image-ec2) and **tags** (web and nginx-proxy)
+
+#### Example workflow to deploy using docker-compose
 
 ## Options
 The action has multiple options, here is a list of options you can use  under the **with** flag in your workflow:
