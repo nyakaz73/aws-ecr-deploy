@@ -111,6 +111,9 @@ const buildImage = ({ use_compose, image_name, docker_path }) => {
         if (use_compose === 'true') {
             const build = execSync(`docker-compose build`, execOptions).toString();
             console.log(build);
+            //TODO
+            //here we need to add an option of allowing usert put a custom dockercomposefile
+            // $ docker-compose -f docker-compose.staging.yml build
 
         } else {
             const build = execSync(`docker build -t ${image_name} ${docker_path}`, execOptions).toString();
@@ -165,6 +168,9 @@ const pushImage = ({ aws_account_id, region, repo_name, tag_name, repo_uri, imag
         if (use_compose === 'true') {
             const push = execSync(`docker-compose push`).toString();
             console.log(push);
+            //TO DO
+            // Add an option to custom push a docker-compose file
+            // $ docker-compose -f docker-compose.staging.yml push
         } else {
             if (repo_uri !== "") {
                 const push = execSync(`docker push ${repo_uri}:${tag_name}`).toString();
