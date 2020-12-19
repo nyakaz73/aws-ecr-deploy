@@ -107,7 +107,7 @@ services:
 The values consist of the repository URI (123456789.dkr.ecr.us-east-1.amazonaws.com) along with the **image name** (myapp-image-ec2) and **tags** (web and nginx-proxy)
 
 #### Example workflow to deploy using docker-compose
-**NB** To build and push your image(s) to AWS ECR using a docker compose file make sure to add a ***use_compose: true*** tag see example below:
+**NB** To build and push your image(s) to AWS ECR using a ***docker-compose.yml*** file make sure to add a ***use_compose: true*** tag see example below:
 ```yml
 name: Deploy Container image to aws ECR
 on:
